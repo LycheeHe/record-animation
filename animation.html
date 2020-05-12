@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>录音动画</title>
+    <style>
+      #canvas {
+        width: 100%;
+        position: relative;
+        height: 200px;
+      }
+      .time-line-image {
+        background: url("./line.png") no-repeat;
+        width: 3px;
+        height: 158px;
+        position: absolute;
+        top: 28px;
+        display: inline-block;
+        z-index: 100;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="record-animation-container">
+      <canvas id="canvas" height="180"></canvas>
+      <i id="time-line" class="time-line-image"></i>
+    </div>
+
+    <button id="begin">Begin</button>
+    <button id="stop">Stop</button>
+    <script src="./animation.js"></script>
+    <script>
+      getRanNumInclusive = (_min, _max) => {
+        _min = Math.ceil(_min);
+        _max = Math.floor(_max);
+        return Math.floor(Math.random() * (_max - (_min + 1))) + _min;
+      };
+      const recordAnimation = new RecordAnimation();
+      setInterval(() => {
+        const radom = getRanNumInclusive(1, 72);
+        recordAnimation.setVolume(radom);
+      }, 10);
+      const beginEle = document.getElementById("begin");
+      const stopEle = document.getElementById("stop");
+
+      beginEle.addEventListener("click", function (e) {
+        recordAnimation.beginRecord();
+      });
+      stopEle.addEventListener("click", function () {
+        recordAnimation.stopRecord();
+      });
+    </script>
+  </body>
+</html>
